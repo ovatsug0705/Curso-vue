@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Style</title>
+</head>
+
+<style>
+  .caixas {
+    display: flex;
+    justify-content: space-around;
+  }
+  .demo {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+  }
+  .c1 {
+    background-color: red;
+  }
+  .c2 {
+    background-color: green;
+  }
+  .c3 {
+    background-color: blue;
+  }
+  .girar {
+    transform: rotate(45deg);
+  }
+</style>
+
+<body>
+  <script src="https://unpkg.com/vue"></script>
+  <div id="app">
+    <div class="caixas">
+      <div class="demo" 
+          :class="estilo" @click="applyc1 = !applyc1"></div>
+      <div class="demo"
+          :class="estilo" @click="applyc1 = !applyc1"></div>
+      <div class="demo girar" 
+          :class="[classCSS, {girar: applyrotate}]"></div>
+    </div>
+    <hr>
+    <input type="text" v-model="classCSS">
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      applyc1: false,
+      classCSS: 'c1',
+      applyrotate: true,
+    },
+    computed: {
+      estilo() {
+        return {
+          'c1': this.applyc1, 
+          'c2': !this.applyc1
+        }
+      }
+    }
+  })
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <comp></comp>
+    <comp></comp>
+    <comp></comp>
+  </div>
+
+  <script>
+    //Registro global
+    Vue.component('comp', {
+      template: `
+        <div>
+          <h1 ref="aulaRef">{{ aula }}</h1>
+          <h2>{{ modulo }}</h2>
+          <button @click="changeAula">Alterar aula</button>
+          <button @click="changeModulo">Alterar modulo</button>
+        </div>
+      `,
+      data: () => { // Quando um componente está sendo utilizado é necessário usar uma função.
+        return {
+          aula: "Aula de refs",
+          modulo: "Modulo",
+        }
+      },
+      methods: {
+        changeAula() {
+          this.aula += '#';
+        },
+        changeModulo() {
+          this.modulo += '#';
+        }
+      }
+    });
+
+    const vm = new Vue({
+      el: "#app",
+    });
+  </script>
+</body>
+</html>

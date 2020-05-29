@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    font-size: 16px;
+}
+
+.t-main {
+    display: block;
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.m-player {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 25px;
+    box-shadow: 28px 28px 20px -35px;
+}
+
+.m-player_box {
+    width: 50%;
+    text-align: center;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.m-player_name {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.m-player_bar {
+    height: 30px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.m-player_life {
+    font-size: 24px;
+}
+
+.m-controls {
+    height: 100px;
+    width: 100%;
+    box-shadow: 28px 28px 20px -35px;
+    margin-top: 25px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.m-controls_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.m-controls_btn {
+    border-radius: 7px;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.m-controls_btn.-red {
+    color: white;
+    background-color: red;
+}
+
+.m-controls_btn.-green {
+    color: white;
+    background-color: green;
+}
+
+.m-controls_btn.-blue {
+    color: white;
+    background-color: blue;
+}
+
+.m-controls_btn.-yellow {
+    background-color: yellow;
+}
+
+.m-logs {
+    list-style: none;
+}
+
+.m-logs li {
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+}
+
+.player-log {
+    background-color: cadetblue;
+}
+
+.monster-log {
+    background-color: palevioletred;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Events</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <div id="app">
+    <!-- <h1>{{ counter }}</h1> -->
+    <!-- <h1>{{ counter * 2 }}</h1> -->
+    <h1>{{ counter > 10 ? 'maior q 10 ' : 'counter menor q 10' }}</h1>
+    <button v-on:click="sum(5, $event)">Somar 1</button>
+
+    <p v-on:mousemove="mousetracking">
+      Mouse: x:{{ x }} e y:{{ y }}
+      <!-- <span v-on:mousemove="stop">No Event</span> -->
+      <span v-on:mousemove.stop>No Event</span>
+      <!-- <span v-on:mousemove.stop.prevent>No Event</span> -->
+    </p>
+
+    <!-- <a v-on:click.prevent href="http://google.com.br" target="_blank">Google</a> -->
+    <a v-on:click.prevent="noNav" href="http://google.com.br" target="_blank">Google</a>
+    
+    <hr>
+
+    <p>Esse é normal</p>
+    <input v-on:keyup="showAlert" type="text">
+
+    <hr>
+
+    <p>Esse é com modificador</p>
+    <input v-on:keyup.enter="showAlert" type="text">
+    <input v-on:keyup.enter.alt="showAlert" type="text">
+    
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        counter: 0,
+        x: 0,
+        y: 0,
+      },
+      methods: {
+        sum(step, e) {
+          console.log('evento', e);
+          this.counter += step;
+        },
+        mousetracking(evt) {
+          console.log("event", evt);
+          this.x = evt.clientX;
+          this.y = evt.clientY;
+        },
+        stop(e) {
+          e.stopPropagation();
+        },
+        noNav(e) {
+          console.log('nonav');
+        },
+        showAlert(e){
+          alert('test' + e.target.value);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

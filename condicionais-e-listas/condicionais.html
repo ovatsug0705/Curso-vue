@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Condicional</title>
+</head>
+<body>
+  <script src="https://unpkg.com/vue"></script>
+  
+  <div id="app">
+    <template v-if="logado">
+      <p>Usuário Logado: {{ user }}</p>
+      <p>Perfil: Admin</p>
+    </template>
+    <p v-else-if="anonimo">Navegando como anônimo.</p>
+    <p v-else>Nenhum usuário logado</p>
+    <button @click="logado = !logado">
+      {{ logado ? "Sair" : "Entrar" }}
+    </button>
+    <input type="checkbox" v-model="anonimo">
+    <label for="">Anônimo</label>
+  </div>
+
+  <hr>
+
+  <footer v-show="logado">
+    Development
+  </footer>
+
+  <!-- Else do v-show -->
+  <footer v-show="!logado">
+    Development 2
+  </footer>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        user: 'Gustavo',
+        logado: false,
+        anonimo: true
+      }
+    })
+  </script>
+</body>
+</html>

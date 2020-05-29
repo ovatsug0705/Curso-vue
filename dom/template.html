@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue.js</title>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <div id="app">
+
+    <h1 v-once>{{ titulo }}</h1>
+    <h2>{{ saudacao() }}</h2>
+    <a v-bind:href="link" target="_blank">Google</a>
+
+    <hr>
+
+    <p>{{ link2 }}</p>
+    <p v-html="link2"></p>
+
+    <hr>
+
+    <h2>Propriedades reativas</h2>
+    <h3>{{ test }}</h3>
+    <input type="text" v-model="test">
+
+    <hr>
+
+    <h2>Propriedades reativas 2</h2>
+    <button v-on:click="more">More</button>
+    <button v-on:click="counter2++">More 2</button>
+    <button v-on:click="minus">Minus</button>
+    <p>Couter: {{ counter }} | {{ counter2 }}</p>
+    <p>Result: {{ resultFunc }}</p>
+
+    <hr>
+
+    <h2>Sintáxe reduzida</h2>
+    <button @click="more">More</button>
+    <button @click="counter2++">More 2</button>
+    <button @click="minus">Minus</button>
+    <p>Couter: {{ counter }} | {{ counter2 }}</p>
+    <p>Result: {{ resultFunc }}</p>
+    <input :value="counter2" type="text">
+
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        test: 'texto qualquer',
+        titulo: 'test',
+        link: 'http://google.com.br',
+        link2: '<a href="http://google.com.br">Google 2</a>',
+        counter: 0,
+        counter2: 0,
+        result: '',
+      },
+      computed: {
+        //Resultado computado de um valor. Funciona somente com dados síncronos.
+        resultFunc() {
+          // console.log('resultFunc computed');
+          return this.result = this.counter >= 5 ? "Maior ou igual a 5" : "Menor que cinco";
+        }
+      },
+      watch: {
+        //usado para monitorar a mudança em uma variável. Precisa de referênciar uma variável
+        counter(novo, antigo){
+          const instance = this;
+          setTimeout(()=> {
+            // instance.counter = 0;
+            this.counter = 0;
+            this.link = 'http://udemy.com.br';
+          }, 5000);
+        }
+      },
+      methods: {
+        saudacao() {
+          // console.log(this);
+          this.titulo = 'bom dia!!';
+          return this.titulo;
+        },
+        more() {
+          this.counter++;
+        },
+        minus() {
+          this.counter--;
+        },
+        // resultFunc() {
+        //   console.log('resultFunc');
+        //   return this.result = this.counter >= 5 ? "Maior ou igual a 5" : "Menor que cinco";
+        // }
+      }
+    });
+  </script>
+</body>
+</html>

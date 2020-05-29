@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue"></script>
+  <title>Registro</title>
+</head>
+<body>
+  <div id="app">
+    <contador1></contador1>
+    <contador1></contador1>
+    <contador1></contador1>
+  </div>
+
+  <hr>
+
+  <div id="app2">
+    <contador-2></contador-2>
+    <contador-2></contador-2>
+    <contador-2></contador-2>
+  </div>
+
+  <script>
+    //Registro Local 
+    const counter = {
+      template: `
+        <div>
+          <span>{{ contador }}</span>
+          <button @click="contador++">+</button>
+          <button @click="contador--">-</button>
+        </div>
+      `,
+      data() {
+        return {
+          contador: 0
+        }
+      }
+    };
+
+    new Vue({
+      el: '#app',
+      components: {
+        contador1: counter
+      }
+    });
+
+    new Vue({
+      el: '#app2',
+      components: {
+        'contador-2': counter
+      }
+    });
+  </script>
+</body>
+</html>

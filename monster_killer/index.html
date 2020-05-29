@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Monster Killer</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="t-main" data-game>
+    <div class="m-player">
+      <div class="m-player_box">
+        <p class="m-player_name">Warrior</p>
+        <span :style="[warriorProgressBar]" class="m-player_bar"></span>
+        <span class="m-player_life">{{ warriorLife }} %</span>
+      </div>
+      <div class="m-player_box">
+        <p class="m-player_name">Monster</p>
+        <span :style="[monsterProgressBar]" class="m-player_bar"></span>
+        <span class="m-player_life">{{ monsterLife }} %</span>
+      </div>
+    </div>
+
+    <div class="m-controls">
+      <ul v-if="plaing" class="m-controls_list">
+        <li>
+          <button @click="attack" class="m-controls_btn -red">Attack</button>
+        </li>
+        <li>
+          <button @click="specialAttack" class="m-controls_btn -yellow">Special Attack</button>
+        </li>
+        <li>
+          <button @click="heal" class="m-controls_btn -green">Heal</button>
+        </li>
+        <li>
+          <button @click="resetGame" class="m-controls_btn">Give up</button>
+        </li>
+      </ul>
+      <template v-if="gameResult">{{ gameResult }}</template>
+      <button v-if="!plaing" @click="startGame" class="m-controls_btn -blue">Start Game</button>
+    </div>
+
+    <template v-if="plaing">
+      <ul class="m-logs" data-monster-killer></ul>
+    </template>
+  </main>
+  <script src="index.js"></script>
+</body>
+</html>

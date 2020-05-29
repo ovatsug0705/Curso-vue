@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Condicional</title>
+</head>
+<body>
+  <script src="https://unpkg.com/vue"></script>
+  
+  <div id="app">
+    <ul>
+      <li v-for="(color, i) in colors"
+          :key="color">{{ i + 1 }} ) {{ color }}</li>
+    </ul>
+    <button @click="colors.push('white')">Add +</button>
+
+    <template v-for="(color, i) in colors">
+      <h1>{{ color }}</h1>
+      <p>{{ i }}</p>
+    </template>
+
+    <div v-for="(color, i) in colors">
+      <h1>{{ color }}</h1>
+      <p>{{ i }}</p>
+    </div>
+
+    <hr>
+
+    <ul>
+      <li v-for="pearson in pearsons">
+        {{ pearson.name }}
+      </li>
+    </ul>
+    
+    <ul>
+      <li v-for="pearson in pearsons">
+        <div v-for="(valor, key, i) in pearson">{{ i }} - {{ key}} = {{ valor }}</div>
+      </li>
+    </ul>
+
+    <hr>
+
+    <div>
+      <span v-for="n in 10">{{ n }}, </span>
+    </div>
+
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        colors: [
+          'red', 'green', 'yellow', 'blue'
+        ],
+        pearsons: [
+          { name: 'Ana', age: 26, weight: 59 },
+          { name: 'Carlos', age: 30, weight: 80 }
+        ]
+      }
+    })
+  </script>
+</body>
+</html>
