@@ -43,7 +43,19 @@ export default {
         indice() {
             return Math.abs(this.numero % 3)
         }
-    }
+    },
+    created() {
+        console.log('criou');
+    },
+    destroyed() {
+        console.log('destruiu');
+    },
+    activated() {
+        console.log('ativou');
+    },
+    deactivated() {
+        console.log('desativou');
+    },
 }
 </script>
 
