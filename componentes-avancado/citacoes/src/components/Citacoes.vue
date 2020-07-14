@@ -5,13 +5,12 @@
             <button @click="numero++">&gt;</button>
         </span>
         <Citacao>
-            <h1>{{ citacoes[indice].autor }}</h1>
-            <p>{{ citacoes[indice].texto }}</p>
-            <small>{{ citacoes[indice].fonte }}</small>
+            <h1 slot="autor">{{ citacoes[indice].autor }}</h1>
+            <p slot="texto">{{ citacoes[indice].texto }}</p>
+            <small slot="fonte">{{ citacoes[indice].fonte }}</small>
+            <p>Teste</p>
+            <p>Teste 2</p>
         </Citacao>
-
-        <!-- {{ citacoes[indice].texto }}
-        {{ numero }} {{ indice }} -->
     </div>
 </template>
 
@@ -38,11 +37,26 @@ export default {
             }]
         }
     },
+    components: {
+        Citacao,
+    },
     computed: {
         indice() {
             return Math.abs(this.numero % 3)
         }
-    }
+    },
+    created() {
+        console.log('criou');
+    },
+    destroyed() {
+        console.log('destruiu');
+    },
+    activated() {
+        console.log('ativou');
+    },
+    deactivated() {
+        console.log('desativou');
+    },
 }
 </script>
 
