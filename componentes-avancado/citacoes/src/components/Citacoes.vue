@@ -18,6 +18,7 @@
 import Citacao from './Citacao';
 
 export default {
+    components: { Citacao },
     data() {
         return {
             numero: 0,
