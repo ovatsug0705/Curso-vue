@@ -1,6 +1,9 @@
 <template>
 	<div id="app" class="container">
 		<h1>HTTP com Axios</h1>
+		<b-alert show dismissible v-for="mensagem in mensagens" 
+			:key="mensagem.texto"
+			:variant="mensagem.tipo">{{ mensagem.texto }}</b-alert>
 		<form action="">
 			<b-card>
 				<b-form-group label="Nome:">
@@ -19,6 +22,10 @@
 					<strong>Nome:</strong> {{ usuario.name }} <br>
 					<strong>Email:</strong> {{ usuario.email }} <br>
 					<strong>Id:</strong> {{ id }} <br>
+					<b-button variant="warning" size="lg"
+						@click="carregar(id)">Carregar</b-button>
+					<b-button variant="danger" size="lg" class="ml-2"
+						@click="excluir(id)">Excluir</b-button>
 				</b-list-group-item>
 			</b-list-group>
 		</form>
@@ -30,6 +37,8 @@ export default {
 	data() {
 		return {
 			usuarios: [],
+			mensagens: [],
+			id: null,
 			usuario: {
 				name: '',
 				email: '',
@@ -37,17 +46,52 @@ export default {
 		}
 	},
 	methods: {
+		limpar() {
+			this.usuario.name = '';
+			this.usuario.email = '';
+			this.id = null;
+			this.mensagens = [];
+		},
+		carregar(id) {
+			this.id = id;
+			this.usuario = { ...this.usuarios[id] }
+		},
+		excluir(id) {
+			this.$http.delete(`/usuarios/${id}.json`)
+				.then(() => {
+					this.limpar();
+					this.mensagens.push({
+						texto: 'Excluido com sucesso!',
+						tipo: 'success',
+					});
+					this.obterUsuarios();
+				})
+				.catch((err) => {
+					this.limpar();
+					this.mensagens.push({
+						texto: `Problemas para excluir: ${err}`,
+						tipo: 'danger',
+					});
+				});
+		},
 		salvar() {
-			this.$http.post('usuarios.json', this.usuario)
-				.then(res => {
-					this.usuario = {};
+			const useMethod = this.id ? 'patch' : 'post';
+			const finalUrl = this.id ? `/${this.id}.json` : '.json';
+
+			this.$http[useMethod](`/usuarios${finalUrl}`, this.usuario)
+				.then(() => {
+					this.limpar();
+					this.mensagens.push({
+						texto: 'Operação realizada com sucesso!',
+						tipo: 'success',
+					})
+					this.obterUsuarios();
 				});
 		},
 		obterUsuarios() {
 			this.$http.get('usuarios.json')
 				.then(res => {
 					this.usuarios = res.data;
-					console.log(res.data)
 				});
 		}
 	},
