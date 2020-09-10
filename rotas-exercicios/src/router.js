@@ -1,17 +1,19 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Inicio from './compoenents/Inicio'
-import Menu from './compoenents/template/Menu'
-import MenuAlt from './compoenents/template/MenuAlt'
-import notFound from './compoenents/template/404'
-import Usuario from './compoenents/usuario/Usuario'
-import UsuarioLista from './compoenents/usuario/UsuarioLista'
-import UsuarioDetalhe from './compoenents/usuario/UsuarioDetalhe'
-import UsuarioEditar from './compoenents/usuario/UsuarioEditar'
+import Router from 'vue-router';
+import Inicio from './components/Inicio';
+// import UsuarioEditar from './components/usuario/UsuarioEditar'
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const Menu = () => import('./components/template/Menu');
+const MenuAlt = () => import('./components/template/MenuAlt');
+const notFound = () => import('./components/template/404');
+const Usuario = () => import(/* webpackChunkName: "usuario"*/'./components/usuario/Usuario');
+const UsuarioLista = () => import(/* webpackChunkName: "usuario"*/'./components/usuario/UsuarioLista');
+const UsuarioDetalhe = () => import(/* webpackChunkName: "usuario"*/'./components/usuario/UsuarioDetalhe');
+const UsuarioEditar = () => import(/* webpackChunkName: "usuario"*/'./components/usuario/UsuarioEditar');
+
+const router = new Router({
     mode: 'history',
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
@@ -39,7 +41,11 @@ export default new Router({
         props: true,
         children: [
             { path: '', component: UsuarioLista },
-            { path: ':id', component: UsuarioDetalhe, props: true },
+            { path: ':id', component: UsuarioDetalhe, props: true,
+                beforeEnter: (to, from, next) => {
+                    console.log('Antes da rota de editar');
+                    next();
+                } },
             { path: ':id/editar', component: UsuarioEditar, props: true,
                 name: 'editarUsuario' },
         ]
@@ -50,4 +56,11 @@ export default new Router({
         path: '*',
         redirect: '/nao-encontrado',
     }]
+});
+
+router.beforeEach((to, from, next) => {
+    console.log('antes das rotas -> global');
+    next()
 })
+
+export default router
