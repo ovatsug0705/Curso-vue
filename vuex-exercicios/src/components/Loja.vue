@@ -19,14 +19,22 @@ export default {
             sequencia: 1,
         }
     },
+    // computed: {
+    //     ...mapGetters({
+    //         quantidade: 'getQuantidade',
+    //         preco: 'getPreco',
+    //     })
+    // },
     computed: {
-        ...mapGetters({
-            quantidade: 'getQuantidade',
-            preco: 'getPreco',
-        })
+        quantidade() {
+            return this.$store.state.parametros.quantidade
+        },
+        preco() {
+            return this.$store.state.parametros.preco
+        }
     },
     methods: {
-        ...mapActions(['adicionarProduto']),
+        ...mapActions('carrinho', ['adicionarProduto']),
         adicionar() {
             const produto = {
                 id: this.sequencia,
@@ -34,10 +42,12 @@ export default {
                 quantidade: this.quantidade,
                 preco: this.preco
             }
-            this.sequencia++
+            this.sequencia++;
             //this.$store.commit('adicionarProduto', produto)
             // this.$store.dispatch('adicionarProduto', produto);
             this.adicionarProduto(produto);
+            // console.log(this.$store.getters.getNome)
+            // console.log(this.$store.getters.getNomeCompleto)
         }
     }
 }
