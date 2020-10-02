@@ -1,14 +1,14 @@
 <template>
   <div>
     <h2>Portifólio</h2>
-    <app-cards :isAction="false" :buttonText="'Vender'"></app-cards>
+    <app-stocks :isAction="false"></app-stocks>
   </div>
 </template>
 
 <script>
-import AppCards from "@/components/Cards";
+import AppStocks from "@/components/Stocks";
 
 export default {
-  components: { AppCards },
+  components: { AppStocks }
 };
 </script>

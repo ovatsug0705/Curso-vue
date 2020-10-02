@@ -40,10 +40,30 @@ export default new Vuex.Store({
   mutations: {
     setBalance: (state, payload) => (state.balance = payload),
     setStocks: (state, payload) => (state.stocks = payload),
+    setStock: (state, payload) => {
+      state.stocks.forEach((stock) => {
+        if (stock.id == payload.id) {
+          stock = payload.data;
+        }
+      });
+    },
   },
   actions: {
-    // buy({ commit }, payload) {},
-    // seal({ commit }, payload) {},
+    buy({ commit }, payload) {
+      let afterBuy = this.state.balance - payload;
+      commit("setBalance", afterBuy);
+    },
+    seal({ commit }, payload) {
+      let afterSeal = this.state.balance + payload;
+      commit("setBalance", afterSeal);
+    },
+    updateStock({ commit }, payload) {
+      const stockData = {
+        id: payload.id,
+        data: payload,
+      };
+      commit("setStock", stockData);
+    },
   },
   modules: {},
 });
