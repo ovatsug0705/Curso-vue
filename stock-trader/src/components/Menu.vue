@@ -15,14 +15,16 @@
         </li>
       </ul>
       <div class="menu__wrap">
-        <button class="menu__btn">Finalizar dia</button>
+        <button class="menu__btn" @click="endingDay()">Finalizar dia</button>
         <div class="menu__submenu">
           <button class="menu__btn" @click="isOpen = !isOpen">
             Salvar e carregar
           </button>
           <ul class="menu__submenu-list" :class="{ active: isOpen }">
-            <li class="menu__submenu-item">Salvar dados</li>
-            <li class="menu__submenu-item">Carregar dados</li>
+            <li class="menu__submenu-item" @click="saveData()">Salvar dados</li>
+            <li class="menu__submenu-item" @click="getData()">
+              Carregar dados
+            </li>
           </ul>
         </div>
 
@@ -35,20 +37,66 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      isDataLoaded: false,
+      appData: {},
     };
   },
   computed: {
     ...mapGetters({
-      balance: "getBalance"
-    })
+      balance: "getBalance",
+      stocks: "getStocks",
+    }),
   },
-  methods: {}
+  methods: {
+    ...mapActions({
+      setBalance: "updateBalance",
+      setStocks: "updateStocks",
+      setStock: "updateStock",
+    }),
+    endingDay() {
+      this.stocks.forEach((stk) => {
+        let stock = { ...stk };
+        let variation = parseInt(Math.random() * 10) + 2;
+
+        if (variation % 2) {
+          stk.value -= parseInt(stock.value / 10 + stock.value / variation);
+        } else {
+          stk.value += parseInt(stock.value / 10 + stock.value / variation);
+        }
+      });
+    },
+    saveData() {
+      const _self = this;
+
+      this.appData = {
+        balance: _self.balance,
+        stocks: _self.stocks,
+      };
+
+      this.$http
+        .put(`/stocktrader.json`, this.appData)
+        .then(() => (this.isDataLoaded = true));
+
+      this.isOpen = !this.isOpen;
+    },
+    getData() {
+      this.$http.get("/stocktrader.json").then((res) => {
+        this.appData = res.data;
+        this.updateData();
+      });
+    },
+    updateData() {
+      this.setBalance(this.appData.balance);
+      this.setStocks(this.appData.stocks);
+      this.isOpen = !this.isOpen;
+    },
+  },
 };
 </script>
 

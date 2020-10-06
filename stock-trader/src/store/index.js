@@ -64,6 +64,12 @@ export default new Vuex.Store({
       };
       commit("setStock", stockData);
     },
+    updateBalance({ commit }, payload) {
+      commit("setBalance", payload);
+    },
+    updateStocks({ commit }, payload) {
+      commit("setStocks", payload);
+    },
   },
   modules: {},
 });

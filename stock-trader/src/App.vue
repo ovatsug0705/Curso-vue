@@ -22,6 +22,8 @@ export default {
 
 #app {
   color: $color;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .app__ctn {
